@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title | e-Gönüllü</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    <link href="~/Content/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Style/footer.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">E-Gönüllü</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Anasayfa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Views/MyActivity/Index.cshtml">Etkinliğim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Views/"><i class="fas fa-seedling"></i> Etkinlikler</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-light my-2 my-sm-0 m-2" type="submit">Etkinlik Oluştur</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-user fa-spin"></i> Profilim</button>
+            </form>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+        <hr />
+        <section id="footer">
+            <div class="container">
+                <div class="row text-center text-xs-center text-sm-left text-md-left">
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                        <ul class="list-unstyled list-inline social text-center">
+                            <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href=""><i class="fa fa-google-plus"></i></a></li>
+                            <li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                        <p class="h6"> @DateTime.Now.Year &copy;<a class="text-green ml-2" href="" target="_blank">LazyC0d3rz</a></p>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
