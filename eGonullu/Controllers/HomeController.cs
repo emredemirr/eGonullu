@@ -1,30 +1,45 @@
-﻿using System;
+﻿using eGonullu.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Threading.Tasks;
+using eGonullu.Services;
+using eGonullu.ViewModels;
 
 namespace eGonullu.Controllers
 {
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
+	public class HomeController : Controller
+	{
+		private readonly ILogger<HomeController> _logger;
+		private readonly IActivityData _activityData;
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+		public HomeController(IActivityData activityData, ILogger<HomeController> logger)
+		{
+			_activityData = activityData;
+			_logger = logger;
+		}
 
-            return View();
-        }
+		public IActionResult Index()
+		{
+			var viewModel = new HomeIndexViewModel
+			{
+				Activities = _activityData.GetAll()
+			};
+			return View(viewModel);
+		}
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+		public IActionResult Privacy()
+		{
+			return View();
+		}
 
-            return View();
-        }
-    }
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+	}
 }

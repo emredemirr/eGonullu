@@ -6,10 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title | e-Gönüllü</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-
-    <link href="~/Content/all.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Style/footer.css">
+    <link rel="stylesheet" href="~/css/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/footer.css">
 
 </head>
 <body>
@@ -67,9 +65,8 @@
             </div>
         </section>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
