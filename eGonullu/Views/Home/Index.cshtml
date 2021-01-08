@@ -52,19 +52,23 @@
 </div>
 
 <div class="row row-cols-1 row-cols-md-5 m-3">
-    @foreach (var activity in @Model.Activities)
+
+    @if (Model.Activities.Any())
     {
-        <div class="card p-1" style="width: 18rem;">
-            <img src="~/images/img.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@activity.Name</h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the
-                    card's content.
-                </p>
-                <p class="card-text"><small class="text-muted">Son Güncelleme: 2 saat önce</small></p>
-                <a href="#" class="btn btn-outline-success btn-sm btn-block">İncele</a>
+        @foreach (var activity in @Model.Activities)
+        {
+            <div class="card p-1" style="width: 18rem;">
+                <img src="~/images/img.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@activity.Name</h5>
+                    <p class="card-text">
+                        Some quick example text to build on the card title and make up the bulk of the
+                        card's content.
+                    </p>
+                    <p class="card-text"><small class="text-muted">Son Güncelleme: 2 saat önce</small></p>
+                    <a href="#" class="btn btn-outline-success btn-sm btn-block">İncele</a>
+                </div>
             </div>
-        </div>
+        }
     }
 </div>

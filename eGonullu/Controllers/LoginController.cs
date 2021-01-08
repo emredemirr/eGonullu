@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
+    [Authorize]
     public class LoginController : Controller
     {
         // GET: Login
         public IActionResult Index()
         {
-            return View();
+	        return RedirectToAction("Index", "Home");
         }
     }
 }

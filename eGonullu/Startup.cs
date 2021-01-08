@@ -10,6 +10,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using eGonullu.Data;
 using eGonullu.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 
 namespace eGonullu
@@ -18,15 +22,25 @@ namespace eGonullu
 	{
 		public Startup(IConfiguration configuration)
 		{
-			Configuration = configuration;
+			_configuration = configuration;
 		}
 
-		public IConfiguration Configuration { get; }
+		private readonly IConfiguration _configuration;
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<EGonulluDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("eGonullu")));
+			services.AddAuthentication(options =>
+				{
+					options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+					options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+				})
+				.AddOpenIdConnect(options =>
+				{
+					_configuration.Bind("AzureAd", options);
+				})
+				.AddCookie();
+			services.AddDbContext<EGonulluDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("eGonullu")));
 			services.AddScoped<IUserData, SqlUserData>();
 			services.AddScoped<IParticipantData, SqlParticipantData>();
 			services.AddScoped<IActivityData, SqlActivityData>();
@@ -47,10 +61,12 @@ namespace eGonullu
 				app.UseHsts();
 			}
 			app.UseHttpsRedirection();
+			app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 			app.UseStaticFiles();
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

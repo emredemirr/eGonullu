@@ -10,7 +10,7 @@ using eGonullu.Data;
 namespace eGonullu.Migrations
 {
     [DbContext(typeof(EGonulluDbContext))]
-    [Migration("20210106102858_InitialCreate")]
+    [Migration("20210108041904_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,9 @@ namespace eGonullu.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

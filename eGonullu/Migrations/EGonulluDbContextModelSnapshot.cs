@@ -89,6 +89,9 @@ namespace eGonullu.Migrations
                     b.Property<string>("Tc")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
