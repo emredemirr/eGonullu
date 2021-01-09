@@ -12,7 +12,7 @@ namespace eGonullu.Services
 		IEnumerable<User> GetAll();
 		User GetUserByClaims(IEnumerable<Claim> claims);
 		User Add(User user);
-		User Get(int id);
+		User Get(string id);
 		User Update(User user);
 	}
 }

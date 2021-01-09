@@ -9,7 +9,7 @@ namespace eGonullu.Services
 	public interface IActivityData
 	{
 		IEnumerable<Activity> GetAll();
-		IEnumerable<Activity> GetUserActivities(int userId);
+		IEnumerable<Activity> GetUserActivities(string userId);
 		Activity Add(Activity activity);
 		Activity Get(int id);
 		Activity Update(Activity activity);

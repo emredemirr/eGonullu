@@ -61,7 +61,7 @@ namespace eGonullu.Controllers
 		private bool checkIfUserExist()
 		{
 			return _userData.GetAll().Any(u =>
-				u.UniqueId == User.Claims.SingleOrDefault(c => 
+				u.Id == User.Claims.SingleOrDefault(c => 
 					c.Type.EndsWith("nameidentifier")).Value);
 		}
 
@@ -77,7 +77,7 @@ namespace eGonullu.Controllers
 						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value,
 					LastName = User.Claims.SingleOrDefault(c =>
 						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value,
-					UniqueId = User.Claims.SingleOrDefault(c =>
+					Id = User.Claims.SingleOrDefault(c =>
 						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value,
 					Phone = "",
 					Tc = ""

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using eGonullu.Data;
 using eGonullu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eGonullu.Services
 {
@@ -27,7 +28,7 @@ namespace eGonullu.Services
 						c.Type.EndsWith("nameidentifier"))
 					?.Value;
 
-				return _context.Users.SingleOrDefault(u => u.UniqueId == uniqueId);
+				return _context.Users.Include(u => u.Activities).SingleOrDefault(u => u.Id == uniqueId);
 		}
 
 		public User Add(User user)
@@ -37,7 +38,7 @@ namespace eGonullu.Services
 			return user;
 		}
 
-		public User Get(int id)
+		public User Get(string id)
 		{
 			throw new NotImplementedException();
 		}

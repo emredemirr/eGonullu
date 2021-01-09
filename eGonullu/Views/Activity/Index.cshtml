@@ -9,7 +9,7 @@
     {
         @foreach (var activity in Model.Activities)
         {
-            <li><h2>@activity.Name</h2></li>
+            <li><h2><a asp-action="Details", asp-route-id="@activity.Id">@activity.Name</a></h2></li>
         }
     }
 </ul>

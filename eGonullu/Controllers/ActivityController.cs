@@ -28,9 +28,13 @@ namespace eGonullu.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-	        return View();
+	        var viewModel = new ActivityDetailsViewModel
+	        {
+		        Activity = _activityData.Get(id)
+	        };
+	        return View(viewModel);
         }
 
         private User getUser()

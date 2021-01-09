@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eGonullu.Data;
 using eGonullu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eGonullu.Services
 {
@@ -20,7 +21,7 @@ namespace eGonullu.Services
 			return _context.Activities.OrderBy(a => a.Name);
 		}
 
-		public IEnumerable<Activity> GetUserActivities(int userId)
+		public IEnumerable<Activity> GetUserActivities(string userId)
 		{
 			return _context.Activities.Where(a => a.User.Id == userId);
 		}
@@ -32,7 +33,11 @@ namespace eGonullu.Services
 
 		public Activity Get(int id)
 		{
-			throw new NotImplementedException();
+			return _context.Activities
+				.Include(a => a.User)
+				.Include(a => a.Participants)
+				.ThenInclude(participant => participant.User)
+				.SingleOrDefault(a => a.Id == id);
 		}
 
 		public Activity Update(Activity user)

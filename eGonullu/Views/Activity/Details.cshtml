@@ -1,5 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model eGonullu.ViewModels.ActivityDetailsViewModel
+
+<h1>Aktivite Sahibi: @Model.Activity.User.Name</h1>
+<h1>Aktivite Adı: @Model.Activity.Name</h1>
+<h1>Aktivite Yeri: @Model.Activity.City / @Model.Activity.State</h1>
+
+<hr/>
+
+<h1>Katılımcılar</h1>
+<ul>
+    @foreach (var participant in Model.Activity.Participants)
+    {
+        <li>@participant.User.Name</li>
+    }
+</ul>
