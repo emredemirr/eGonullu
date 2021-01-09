@@ -1,8 +1,16 @@
-﻿
+﻿@model eGonullu.ViewModels.ActivityIndexViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<ul>
+    @if (Model.Activities.Any())
+    {
+        @foreach (var activity in Model.Activities)
+        {
+            <li><h2>@activity.Name</h2></li>
+        }
+    }
+</ul>
 

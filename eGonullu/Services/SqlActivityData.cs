@@ -20,6 +20,11 @@ namespace eGonullu.Services
 			return _context.Activities.OrderBy(a => a.Name);
 		}
 
+		public IEnumerable<Activity> GetUserActivities(int userId)
+		{
+			return _context.Activities.Where(a => a.User.Id == userId);
+		}
+
 		public Activity Add(Activity user)
 		{
 			throw new NotImplementedException();

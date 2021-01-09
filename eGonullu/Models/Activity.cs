@@ -14,5 +14,7 @@ namespace eGonullu.Models
 		public DateTime ActivityTime { get; set; }
 		public string City { get; set; }
 		public string State { get; set; }
+		public User User { get; set; }
+		public List<Participant> Participants { get; set; }
 	}
 }
