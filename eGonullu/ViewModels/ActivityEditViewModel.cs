@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eGonullu.Models
+namespace eGonullu.ViewModels
 {
-	public class Activity
+	public class ActivityEditViewModel
 	{
-		public int Id { get; set; }
-
 		[Required, MaxLength(80)]
 		public string Name { get; set; }
 		public string PictureUrl { get; set; }
@@ -21,7 +19,5 @@ namespace eGonullu.Models
 
 		[Required, MaxLength(30)]
 		public string State { get; set; }
-		public User User { get; set; }
-		public List<Participant> Participants { get; set; }
 	}
 }

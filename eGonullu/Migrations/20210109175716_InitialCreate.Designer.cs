@@ -10,7 +10,7 @@ using eGonullu.Data;
 namespace eGonullu.Migrations
 {
     [DbContext(typeof(EGonulluDbContext))]
-    [Migration("20210109091701_InitialCreate")]
+    [Migration("20210109175716_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,23 +28,29 @@ namespace eGonullu.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("ActivityTime")
+                    b.Property<DateTime>("ActivityDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Definition")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
-                    b.Property<string>("PicturePath")
+                    b.Property<string>("PictureUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

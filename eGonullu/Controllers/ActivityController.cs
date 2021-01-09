@@ -37,6 +37,58 @@ namespace eGonullu.Controllers
 	        return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+	        return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ActivityEditViewModel model)
+        {
+	        if (ModelState.IsValid)
+	        {
+		        var activity = new Activity
+		        {
+					User = getUser(),
+					ActivityDate = model.ActivityDate,
+					City = model.City,
+					State = model.State,
+					Name = model.Name,
+					Definition = model.Definition,
+					PictureUrl = model.PictureUrl
+		        };
+		        activity = _activityData.Add(activity);
+		        return RedirectToAction(nameof(Details), new { id = activity.Id});
+			}
+	        else
+	        {
+		        return View();
+	        }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+	        return View(_activityData.Get(id));
+        }
+
+		[HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Activity activity)
+        {
+	        if (ModelState.IsValid)
+	        {
+		        _activityData.Update(activity);
+				return RedirectToAction(nameof(Details), new { id = activity.Id });
+			}
+	        else
+	        {
+		        return View();
+	        }
+		}
+
         private User getUser()
         {
 	        return _userData.GetUserByClaims(User.Claims);

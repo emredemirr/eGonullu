@@ -26,9 +26,11 @@ namespace eGonullu.Services
 			return _context.Activities.Where(a => a.User.Id == userId);
 		}
 
-		public Activity Add(Activity user)
+		public Activity Add(Activity activity)
 		{
-			throw new NotImplementedException();
+			_context.Activities.Add(activity);
+			_context.SaveChanges();
+			return activity;
 		}
 
 		public Activity Get(int id)
@@ -40,9 +42,11 @@ namespace eGonullu.Services
 				.SingleOrDefault(a => a.Id == id);
 		}
 
-		public Activity Update(Activity user)
+		public Activity Update(Activity restaurant)
 		{
-			throw new NotImplementedException();
+			_context.Attach(restaurant).State = EntityState.Modified;
+			_context.SaveChanges();
+			return restaurant;
 		}
 	}
 }

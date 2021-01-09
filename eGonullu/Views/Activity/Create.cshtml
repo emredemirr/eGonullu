@@ -1,0 +1,35 @@
+﻿@model Activity
+<form method="post">
+    @*<input type="text" name="Name" value=""/>*@
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" value="" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="City"></label>
+        <input asp-for="City" value="" />
+        <span asp-validation-for="City"></span>
+    </div>
+    <div>
+        <label asp-for="State"></label>
+        <input asp-for="State" value="" />
+        <span asp-validation-for="State"></span>
+    </div>
+    <div>
+        <label asp-for="PictureUrl"></label>
+        <input asp-for="PictureUrl" value="" />
+        <span asp-validation-for="PictureUrl"></span>
+    </div>
+    <div>
+        <label asp-for="Definition"></label>
+        <input asp-for="Definition" value="" />
+        <span asp-validation-for="Definition"></span>
+    </div>
+    <div>
+        <label asp-for="ActivityDate"></label>
+        <input asp-for="ActivityDate" value="" />
+        <span asp-validation-for="ActivityDate"></span>
+    </div>
+    <input type="submit" name="save" value="Save" />
+</form>
