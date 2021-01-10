@@ -21,6 +21,14 @@ namespace eGonullu.Services
 			return _context.Activities.OrderBy(a => a.Name);
 		}
 
+		public IEnumerable<Activity> GetByCityAndState(string city, string state)
+		{
+			return _context.Activities.Where(a => a.City == city && a.State == state);
+		}
+		public IEnumerable<Activity> GetByCity(string city)
+		{
+			return _context.Activities.Where(a => a.City == city);
+		}
 		public IEnumerable<Activity> GetUserActivities(string userId)
 		{
 			return _context.Activities.Where(a => a.User.Id == userId);

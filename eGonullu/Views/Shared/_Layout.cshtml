@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using eGonullu.Services
+@inject IUserData UserData
+@{
+    User currentUser = UserData.GetUserByClaims(User.Claims);
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -16,15 +21,15 @@
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">E-Gönüllü</a>
+        <a class="navbar-brand" href="/">E-Gönüllü</a>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Anasayfa <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Anasayfa <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Views/MyActivity/Index.cshtml">Etkinliğim</a>
+                    <a class="nav-link" href="/MyActivity">Etkinliklerim</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="~/Views/"><i class="fas fa-seedling"></i> Etkinlikler</a>
@@ -32,7 +37,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-light my-2 my-sm-0 m-2" type="submit">Etkinlik Oluştur</button>
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-user fa-spin"></i> Profilim</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-user fa-spin"></i> @currentUser.Name</button>
             </form>
         </div>
     </nav>

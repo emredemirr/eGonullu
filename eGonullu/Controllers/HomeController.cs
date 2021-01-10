@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using eGonullu.Services;
 using eGonullu.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace eGonullu.Controllers
 {
@@ -27,6 +29,7 @@ namespace eGonullu.Controllers
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
+			
 			if (!User.Identity.IsAuthenticated)
 			{
 				return View("Unauthorized");
@@ -41,7 +44,24 @@ namespace eGonullu.Controllers
 				return View(viewModel);
 			}
 		}
-
+		[Route("[controller]/[action]/{city}/{state}")]
+		public IActionResult Index(string city, string state)
+		{
+			var viewModel = new HomeIndexViewModel
+			{
+				Activities = _activityData.GetByCityAndState(city, state)
+			};
+			return View(viewModel);
+		}
+		[Route("[controller]/[action]/{city}")]
+		public IActionResult Index(string city)
+		{
+			var viewModel = new HomeIndexViewModel
+			{
+				Activities = _activityData.GetByCity(city)
+			};
+			return View(viewModel);
+		}
 		public IActionResult Test()
 		{
 			IEnumerable<Claim> claims = User.Claims;

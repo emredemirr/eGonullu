@@ -1,6 +1,8 @@
-﻿@model eGonullu.ViewModels.HomeIndexViewModel
+﻿@using eGonullu.Data
+@model eGonullu.ViewModels.HomeIndexViewModel
 @{
     ViewBag.Title = "Anasayfa";
+    string currentCity = Model.Activities.FirstOrDefault()?.City;
 }
 <div class="jumbotron">
     <h1 class="display-3">Merhaba, Gönüllü!</h1>
@@ -19,9 +21,10 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">İstanbul</a>
-                <a class="dropdown-item" href="#">Ankara</a>
-                <a class="dropdown-item" href="#">İzmir</a>
+                @foreach (var city in CityStateData.GetCities())
+                {
+                    <a class="dropdown-item" asp-action="Index" asp-route-city="@city">@city</a>
+                }
             </div>
         </div>
         <div class="dropdown m-2">
@@ -31,21 +34,10 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
-        <div class="dropdown m-2">
-            <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Kategori Seçiniz
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Eğitim</a>
-                <a class="dropdown-item" href="#">Doğa</a>
-                <a class="dropdown-item" href="#">Hayvan</a>
+                @foreach (var state in CityStateData.GetStates(currentCity))
+                {
+                    <a class="dropdown-item" asp-action="Index" asp-route-city="@currentCity" asp-route-state="@state">@state</a>
+                }
             </div>
         </div>
     </div>
@@ -66,7 +58,7 @@
                         card's content.
                     </p>
                     <p class="card-text"><small class="text-muted">Son Güncelleme: 2 saat önce</small></p>
-                    <a href="#" class="btn btn-outline-success btn-sm btn-block">İncele</a>
+                    <a asp-action="Details" asp-controller="Activity" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
                 </div>
             </div>
         }

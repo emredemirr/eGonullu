@@ -10,6 +10,8 @@ namespace eGonullu.Services
 	{
 		IEnumerable<Activity> GetAll();
 		IEnumerable<Activity> GetUserActivities(string userId);
+		public IEnumerable<Activity> GetByCityAndState(string city, string state);
+		public IEnumerable<Activity> GetByCity(string city);
 		Activity Add(Activity activity);
 		Activity Get(int id);
 		Activity Update(Activity activity);
