@@ -47,5 +47,6 @@ namespace eGonullu.Services
 		{
 			throw new NotImplementedException();
 		}
+		
 	}
 }

@@ -21,9 +21,18 @@ namespace eGonullu.Services
 			throw new NotImplementedException();
 		}
 
-		public Participant Add(Participant user)
+		public Participant Add(Participant participant)
 		{
-			throw new NotImplementedException();
+			_context.Participants.Add(participant);
+			_context.SaveChanges();
+			return participant;
+		}
+
+		public void Delete(string userId, int activityId)
+		{
+			var participant = Get(userId, activityId);
+			_context.Participants.Remove(participant);
+			_context.SaveChanges();
 		}
 
 		public IEnumerable<Participant> GetByActivityId(int activityId)
@@ -33,9 +42,12 @@ namespace eGonullu.Services
 				.Include(p => p.User)
 				.Where(p => p.Activity.Id == activityId);
 		}
-		public Participant Get(int id)
+		public Participant Get(string userId, int activityId)
 		{
-			throw new NotImplementedException();
+			return _context.Participants
+				.Include(p => p.Activity)
+				.Include(p => p.User)
+				.SingleOrDefault(p => p.User.Id == userId && p.Activity.Id == activityId);
 		}
 
 		public Participant Update(Participant user)

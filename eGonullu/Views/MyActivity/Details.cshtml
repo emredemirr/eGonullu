@@ -3,18 +3,8 @@
 <h1>Aktivite Sahibi: @Model.Activity.User.Name</h1>
 <h1>Aktivite Adı: @Model.Activity.Name</h1>
 <h1>Aktivite Yeri: @Model.Activity.City / @Model.Activity.State</h1>
-@{
-    var buttonName = Model.IsUserParticipant ? "Ayrıl" : "Katıl";
-    var aspActionName = Model.IsUserParticipant ? "ParticipantDelete" : "ParticipantCreate";
-}
-<form asp-action=@aspActionName method="post">
-    <input type="hidden" name="activityId" value="@Model.Activity.Id" />
-    <input type="submit" name="save" value="@buttonName">
-</form>
 
-
-
-<hr />
+<hr/>
 
 <h1>Katılımcılar</h1>
 <ul>

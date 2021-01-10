@@ -13,85 +13,77 @@ namespace eGonullu.Controllers
     {
 	    private IUserData _userData;
 	    private IActivityData _activityData;
+	    private IParticipantData _participantData;
 
-	    public ActivityController(IActivityData activityData, IUserData userData)
+	    public ActivityController(IActivityData activityData, IUserData userData, IParticipantData participantData)
 	    {
 		    _activityData = activityData;
 		    _userData = userData;
+		    _participantData = participantData;
 	    }
-        public IActionResult Index()
-        {
-	        var viewModel = new ActivityIndexViewModel
-	        {
-                Activities = _activityData.GetUserActivities(getUser().Id)
-	        };
-            return View(viewModel);
-        }
 
         public IActionResult Details(int id)
         {
+	        Participant participant;
+	        if (isUserParticipant(id))
+	        {
+		        participant = _participantData.Get(getUser().Id, id);
+			}
+	        else
+	        {
+		        participant = new Participant
+		        {
+			        Activity = _activityData.Get(id),
+			        User = getUser()
+		        };
+	        }
 	        var viewModel = new ActivityDetailsViewModel
 	        {
-		        Activity = _activityData.Get(id)
+		        Activity = _activityData.Get(id),
+				IsUserParticipant = isUserParticipant(id),
+				Participant = participant
 	        };
 	        return View(viewModel);
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ParticipantCreate(int activityId)
         {
-	        return View();
+	        if (ModelState.IsValid)
+	        {
+		        var participant = new Participant
+		        {
+					User = getUser(),
+					Activity = _activityData.Get(activityId)
+		        };
+		        participant = _participantData.Add(participant);
+		        return RedirectToAction("Details", "Activity", new { id = activityId });
+	        }
+	        else
+	        {
+		        return RedirectToAction("Index", "Home");
+	        }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ActivityEditViewModel model)
+        public IActionResult ParticipantDelete(int activityId)
         {
 	        if (ModelState.IsValid)
 	        {
-		        var activity = new Activity
-		        {
-					User = getUser(),
-					ActivityDate = model.ActivityDate,
-					City = model.City,
-					State = model.State,
-					Name = model.Name,
-					Definition = model.Definition,
-					PictureUrl = model.PictureUrl
-		        };
-		        activity = _activityData.Add(activity);
-		        return RedirectToAction(nameof(Details), new { id = activity.Id});
+		        _participantData.Delete(getUser().Id, activityId);
 			}
-	        else
-	        {
-		        return View();
-	        }
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-	        return View(_activityData.Get(id));
-        }
-
-		[HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Activity activity)
-        {
-	        if (ModelState.IsValid)
-	        {
-		        _activityData.Update(activity);
-				return RedirectToAction(nameof(Details), new { id = activity.Id });
-			}
-	        else
-	        {
-		        return View();
-	        }
+			return RedirectToAction("Details", "Activity", new { id = activityId });
 		}
-
-        private User getUser()
+		private User getUser()
         {
 	        return _userData.GetUserByClaims(User.Claims);
+        }
+
+        private bool isUserParticipant(int activityId)
+        {
+	        return _participantData.GetByActivityId(activityId).Any(p => p.User.Id == getUser().Id);
         }
     }
 }
