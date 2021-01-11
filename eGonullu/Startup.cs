@@ -38,6 +38,11 @@ namespace eGonullu
 				.AddOpenIdConnect(options =>
 				{
 					_configuration.Bind("AzureAd", options);
+					options.Events.OnRemoteSignOut = (context) =>
+					{
+						context.Response.Redirect("/");
+						return Task.CompletedTask;
+					};
 				})
 				.AddCookie();
 			services.AddDbContext<EGonulluDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("eGonullu")));

@@ -44,7 +44,6 @@ namespace eGonullu.Controllers
 				return View();
 			}
         }
-
         private User getUser()
         {
 	        return _userData.GetUserByClaims(User.Claims);
