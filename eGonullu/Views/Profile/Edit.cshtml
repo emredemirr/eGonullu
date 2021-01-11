@@ -1,7 +1,6 @@
-﻿
+﻿@model User
 @{
     ViewBag.Title = "Profil Düzenleme";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
@@ -17,7 +16,6 @@
                                 <h4>Emre Demir</h4>
                                 <p class="text-secondary mb-1">Full Stack Developer</p>
                                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                <button class="btn btn-outline-success">KAYDET</button>
                             </div>
                         </div>
                     </div>
@@ -57,78 +55,49 @@
                 <div class="row m-3"><h4>Profili Düzenle</h4></div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Ad</h6>
+                        <form method="post">
+                            <input type="hidden" asp-for="Id"/>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Ad</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-sm" asp-for="Name">
+                                    <span asp-validation-for="Name"></span>
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Ad">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Soyad</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-sm" asp-for="LastName">
+                                    <span asp-validation-for="LastName"></span>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Soyad</h6>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">E-mail</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-sm" asp-for="Email">
+                                    <span asp-validation-for="Email"></span>
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Soyad">
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Telefon</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-sm" asp-for="Phone">
+                                    <span asp-validation-for="Phone"></span>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">E-mail</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="E-mail">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Telefon</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Telefon">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">İl</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="İl">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">İlçe</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="İlçe">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Şifre</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="password" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Şifre">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Şifre Tekrar</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="password" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Şifre Tekrar">
-                            </div>
-                        </div>
-
+                            <input type="submit" name="save" value="Save" class="btn btn-outline-success align-content-lg-end mt-3"/>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -45,7 +45,9 @@ namespace eGonullu.Services
 
 		public User Update(User user)
 		{
-			throw new NotImplementedException();
+			_context.Attach(user).State = EntityState.Modified;
+			_context.SaveChanges();
+			return user;
 		}
 		
 	}

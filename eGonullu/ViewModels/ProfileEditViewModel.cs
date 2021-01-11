@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eGonullu.Models
+namespace eGonullu.ViewModels
 {
-	public class User
+	public class ProfileEditViewModel
 	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public string Id { get; set; }
-
-		[StringLength(11)]
-		public string Tc { get; set; }
-
 		[Required]
 		[MaxLength(30)]
 		public string Name { get; set; }
@@ -23,13 +15,15 @@ namespace eGonullu.Models
 		[Required]
 		[MaxLength(30)]
 		public string LastName { get; set; }
+		
+		[StringLength(11)]
+		public string Tc { get; set; }
 
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }
-
+		
 		[Phone]
 		public string Phone { get; set; }
-		public List<Activity> Activities { get; set; }
 	}
 }
