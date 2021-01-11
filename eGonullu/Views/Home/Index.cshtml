@@ -2,7 +2,8 @@
 @model eGonullu.ViewModels.HomeIndexViewModel
 @{
     ViewBag.Title = "Anasayfa";
-    string currentCity = Model.Activities.FirstOrDefault()?.City;
+    string currentCity = Context.Request.RouteValues.GetValueOrDefault("city")?.ToString();
+    string currentState = Context.Request.RouteValues.GetValueOrDefault("state")?.ToString();
 }
 <div class="jumbotron">
     <h1 class="display-3">Merhaba, Gönüllü!</h1>
@@ -17,29 +18,31 @@
         <div class="dropdown m-2">
             <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                İl Seçiniz
+                @(currentCity == null ? "İl Seçiniz" : @currentCity)
             </a>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu" style="overflow-y:auto; max-height:80vh" aria-labelledby="dropdownMenuLink">
                 @foreach (var city in CityStateData.GetCities())
                 {
                     <a class="dropdown-item" asp-action="Index" asp-route-city="@city">@city</a>
                 }
             </div>
         </div>
-        <div class="dropdown m-2">
-            <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                İlçe Seçiniz
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                @foreach (var state in CityStateData.GetStates(currentCity))
-                {
-                    <a class="dropdown-item" asp-action="Index" asp-route-city="@currentCity" asp-route-state="@state">@state</a>
-                }
+        @if (currentCity != null)
+        {
+            <div class="dropdown m-2">
+                <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @(currentState == null ? "İlçe seçiniz" : @currentState)
+                </a>
+                <div class="dropdown-menu" style="overflow-y:auto; max-height:80vh" aria-labelledby="dropdownMenuLink">
+                    @foreach (var state in CityStateData.GetStates(currentCity))
+                    {
+                        <a class="dropdown-item" asp-action="Index" asp-route-city="@currentCity" asp-route-state="@state">@state</a>
+                    }
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 

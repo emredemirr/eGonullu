@@ -28,16 +28,13 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Anasayfa <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/MyActivity">Etkinliklerim</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Views/"><i class="fas fa-seedling"></i> Etkinlikler</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-light my-2 my-sm-0 m-2" type="submit">Etkinlik Oluştur</button>
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa fa-user fa-spin"></i> @currentUser.Name</button>
+                <a class="btn btn-outline-light my-2 my-sm-0 m-2" href="/MyActivity/Create">Etkinlik Oluştur</a>
+                <a class="btn btn-outline-light my-2 my-sm-0" href="/Profile"><i class="fa fa-user fa-spin"></i> @currentUser?.Name</a>
             </form>
         </div>
     </nav>

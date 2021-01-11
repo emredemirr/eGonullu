@@ -47,6 +47,8 @@ namespace eGonullu.Controllers
 		[Route("[controller]/[action]/{city}/{state}")]
 		public IActionResult Index(string city, string state)
 		{
+			ViewBag.City = city;
+			ViewBag.State = state;
 			var viewModel = new HomeIndexViewModel
 			{
 				Activities = _activityData.GetByCityAndState(city, state)
