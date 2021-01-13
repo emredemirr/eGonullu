@@ -53,15 +53,14 @@
         @foreach (var activity in @Model.Activities)
         {
             <div class="card p-1" style="width: 18rem;">
-                <img src="~/images/img.png" class="card-img-top" alt="...">
+                <img src="@activity.PictureUrl" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@activity.Name</h5>
                     <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the
-                        card's content.
+                        @activity.Definition
                     </p>
-                    <p class="card-text"><small class="text-muted">Son Güncelleme: 2 saat önce</small></p>
-                    <a asp-action="Details" asp-controller="Activity" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
+                    <p class="card-text"><small class="text-muted">Etkinliğe Kalan Süre: @((activity.ActivityDate-DateTime.Now).Hours) saat</small></p>
+                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
                 </div>
             </div>
         }

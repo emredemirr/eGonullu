@@ -1,0 +1,33 @@
+﻿@model eGonullu.ViewModels.ActivityIndexViewModel
+@{
+    ViewBag.Title = "Etkinliklerim";
+}
+
+<div class="jumbotron">
+    <h4 class="display-3">Etkinliklerim</h4>
+    <p class="lead">
+        Etkinlikleriniz bu alanda yer alır.
+    </p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-5 m-3">
+    @if (Model.Activities.Any())
+    {
+        @foreach (var activity in Model.Activities)
+        {
+                
+            <div class="card p-1" style="width: 18rem;">
+                <img src="@activity.PictureUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@activity.Name</h5>
+                    <p class="card-text">
+                        @activity.Definition
+                    </p>
+                    <p class="card-text"><small class="text-muted">Etkinliğe Kalan Süre: @((activity.ActivityDate-DateTime.Now).Hours) saat</small></p>
+                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
+                </div>
+            </div>
+        }
+    }
+
+</div>

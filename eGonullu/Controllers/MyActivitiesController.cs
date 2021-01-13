@@ -5,16 +5,18 @@ using System.Web;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
-	public class MyActivityController : Controller
+	[Authorize]
+	public class MyActivitiesController : Controller
 	{
 		private IUserData _userData;
 		private IActivityData _activityData;
 
-		public MyActivityController(IActivityData activityData, IUserData userData)
+		public MyActivitiesController(IActivityData activityData, IUserData userData)
 		{
 			_activityData = activityData;
 			_userData = userData;

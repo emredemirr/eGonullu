@@ -5,17 +5,19 @@ using System.Web;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
-    public class ActivityController : Controller
+	[Authorize]
+    public class ActivitiesController : Controller
     {
 	    private IUserData _userData;
 	    private IActivityData _activityData;
 	    private IParticipantData _participantData;
 
-	    public ActivityController(IActivityData activityData, IUserData userData, IParticipantData participantData)
+	    public ActivitiesController(IActivityData activityData, IUserData userData, IParticipantData participantData)
 	    {
 		    _activityData = activityData;
 		    _userData = userData;
@@ -58,7 +60,7 @@ namespace eGonullu.Controllers
 					Activity = _activityData.Get(activityId)
 		        };
 		        participant = _participantData.Add(participant);
-		        return RedirectToAction("Details", "Activity", new { id = activityId });
+		        return RedirectToAction("Details", "Activities", new { id = activityId });
 	        }
 	        else
 	        {
@@ -74,7 +76,7 @@ namespace eGonullu.Controllers
 	        {
 		        _participantData.Delete(getUser().Id, activityId);
 			}
-			return RedirectToAction("Details", "Activity", new { id = activityId });
+			return RedirectToAction("Details", "Activities", new { id = activityId });
 		}
 		private User getUser()
         {
@@ -85,5 +87,6 @@ namespace eGonullu.Controllers
         {
 	        return _participantData.GetByActivityId(activityId).Any(p => p.User.Id == getUser().Id);
         }
+
     }
 }

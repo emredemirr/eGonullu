@@ -5,10 +5,12 @@ using System.Web;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
+	[Authorize]
     public class ProfileController : Controller
     {
 	    private IUserData _userData;

@@ -56,5 +56,14 @@ namespace eGonullu.Services
 			_context.SaveChanges();
 			return restaurant;
 		}
+
+		public IEnumerable<Activity> GetJoinedActivities(string userId)
+		{
+			return _context.Activities
+				.Include(a => a.User)
+				.Include(a => a.Participants)
+				.ThenInclude(participant => participant.User)
+				.Where(a => a.Participants.Any(p => p.User.Id == userId));
+		}
 	}
 }
