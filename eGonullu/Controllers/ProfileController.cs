@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
-	[Authorize]
     public class ProfileController : Controller
     {
 	    private IUserData _userData;
@@ -45,11 +46,11 @@ namespace eGonullu.Controllers
 			{
 				return View();
 			}
-        }
-        private User getUser()
-        {
-	        return _userData.GetUserByClaims(User.Claims);
 		}
-		
+		private User getUser()
+		{
+			return _userData.Get(int.Parse(HttpContext.Session.GetString("userId"))).Result;
+		}
+
 	}
 }

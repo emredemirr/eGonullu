@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
-	[Authorize]
 	public class LoginController : Controller
 	{
 		// GET: Login

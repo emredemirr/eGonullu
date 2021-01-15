@@ -29,7 +29,7 @@ namespace eGonullu.Services
 		{
 			return _context.Activities.Where(a => a.City == city);
 		}
-		public IEnumerable<Activity> GetUserActivities(string userId)
+		public IEnumerable<Activity> GetUserActivities(int userId)
 		{
 			return _context.Activities.Where(a => a.User.Id == userId);
 		}
@@ -57,7 +57,7 @@ namespace eGonullu.Services
 			return restaurant;
 		}
 
-		public IEnumerable<Activity> GetJoinedActivities(string userId)
+		public IEnumerable<Activity> GetJoinedActivities(int userId)
 		{
 			return _context.Activities
 				.Include(a => a.User)

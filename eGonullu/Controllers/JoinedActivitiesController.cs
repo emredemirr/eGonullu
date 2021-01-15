@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace eGonullu.Controllers
 {
@@ -33,7 +34,7 @@ namespace eGonullu.Controllers
 
 		private User getUser()
 		{
-			return _userData.GetUserByClaims(User.Claims);
+			return _userData.Get(int.Parse(HttpContext.Session.GetString("userId"))).Result;
 		}
 	}
 }

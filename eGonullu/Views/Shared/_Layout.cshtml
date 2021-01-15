@@ -1,7 +1,8 @@
 ﻿@using eGonullu.Services
+@using Microsoft.AspNetCore.Http
 @inject IUserData UserData
 @{
-    User currentUser = UserData.GetUserByClaims(User.Claims);
+    User currentUser = UserData.Get(int.Parse(Context.Session.GetString("userId"))).Result;
 }
 <!DOCTYPE html>
 <html>

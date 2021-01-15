@@ -15,7 +15,6 @@ using Newtonsoft.Json.Linq;
 
 namespace eGonullu.Controllers
 {
-	[Authorize]
 	public class HomeController : Controller
 	{
 		private IActivityData _activityData;
@@ -36,7 +35,6 @@ namespace eGonullu.Controllers
 			}
 			else
 			{
-				addIfNewUser();
 				var viewModel = new HomeIndexViewModel
 				{
 					Activities = _activityData.GetAll()
@@ -80,32 +78,5 @@ namespace eGonullu.Controllers
 			return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 		
-		private bool checkIfUserExist()
-		{
-			return _userData.GetAll().Any(u =>
-				u.Id == User.Claims.SingleOrDefault(c => 
-					c.Type.EndsWith("nameidentifier")).Value);
-		}
-
-		private void addIfNewUser()
-		{
-			if (!checkIfUserExist())
-			{
-				var user = new User
-				{
-					Email = User.Claims.SingleOrDefault(c =>
-						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value,
-					Name = User.Claims.SingleOrDefault(c =>
-						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value,
-					LastName = User.Claims.SingleOrDefault(c =>
-						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value,
-					Id = User.Claims.SingleOrDefault(c =>
-						c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value,
-					Phone = "",
-					Tc = ""
-				};
-				_userData.Add(user);
-			}
-		}
 	}
 }

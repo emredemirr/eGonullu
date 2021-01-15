@@ -9,9 +9,9 @@ namespace eGonullu.Services
 {
 	public interface IUserData
 	{
-		IEnumerable<User> GetAll();
-		User GetUserByClaims(IEnumerable<Claim> claims);
-		User Add(User user);
-		User Update(User user);
+		Task<User> Get(int userId);
+		Task<bool> Add(User user);
+		Task<bool> Login(string userName, string password);
+		Task<bool> Update(User user);
 	}
 }

@@ -30,23 +30,9 @@ namespace eGonullu
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddAuthentication(options =>
-				{
-					options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-					options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-				})
-				.AddOpenIdConnect(options =>
-				{
-					_configuration.Bind("AzureAd", options);
-					options.Events.OnRemoteSignOut = (context) =>
-					{
-						context.Response.Redirect("/");
-						return Task.CompletedTask;
-					};
-				})
-				.AddCookie();
+			services.AddSession();
 			services.AddDbContext<EGonulluDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("eGonullu")));
-			services.AddScoped<IUserData, SqlUserData>();
+			services.AddTransient<IUserData, HttpUserData>();
 			services.AddScoped<IParticipantData, SqlParticipantData>();
 			services.AddScoped<IActivityData, SqlActivityData>();
 			services.AddControllersWithViews();
@@ -65,14 +51,13 @@ namespace eGonullu
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
+
+			app.UseSession();
 			app.UseHttpsRedirection();
 			app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 			app.UseStaticFiles();
 
 			app.UseRouting();
-
-			app.UseAuthentication();
-			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

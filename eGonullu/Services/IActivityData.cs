@@ -9,10 +9,10 @@ namespace eGonullu.Services
 	public interface IActivityData
 	{
 		IEnumerable<Activity> GetAll();
-		IEnumerable<Activity> GetUserActivities(string userId);
+		IEnumerable<Activity> GetUserActivities(int userId);
 		public IEnumerable<Activity> GetByCityAndState(string city, string state);
 		public IEnumerable<Activity> GetByCity(string city);
-		public IEnumerable<Activity> GetJoinedActivities(string userId);
+		public IEnumerable<Activity> GetJoinedActivities(int userId);
 		Activity Add(Activity activity);
 		Activity Get(int id);
 		Activity Update(Activity activity);

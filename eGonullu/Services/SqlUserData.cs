@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eGonullu.Services
 {
-	public class SqlUserData : IUserData
+	public class SqlUserData
 	{
 		private readonly EGonulluDbContext _context;
 
@@ -22,20 +22,16 @@ namespace eGonullu.Services
 			return _context.Users;
 		}
 
-		public User GetUserByClaims(IEnumerable<Claim> claims)
-		{
-				var uniqueId = claims.SingleOrDefault(c =>
-						c.Type.EndsWith("nameidentifier"))
-					?.Value;
-
-				return _context.Users.Include(u => u.Activities).SingleOrDefault(u => u.Id == uniqueId);
-		}
-
 		public User Add(User user)
 		{
 			_context.Users.Add(user);
 			_context.SaveChanges();
 			return user;
+		}
+
+		public bool Login(string userName, string password)
+		{
+			throw new NotImplementedException();
 		}
 
 		public User Update(User user)

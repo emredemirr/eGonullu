@@ -23,7 +23,7 @@ namespace eGonullu.Services
 			return participant;
 		}
 
-		public void Delete(string userId, int activityId)
+		public void Delete(int userId, int activityId)
 		{
 			var participant = Get(userId, activityId);
 			_context.Participants.Remove(participant);
@@ -37,7 +37,7 @@ namespace eGonullu.Services
 				.Include(p => p.User)
 				.Where(p => p.Activity.Id == activityId);
 		}
-		public Participant Get(string userId, int activityId)
+		public Participant Get(int userId, int activityId)
 		{
 			return _context.Participants
 				.Include(p => p.Activity)

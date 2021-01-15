@@ -8,9 +8,9 @@ namespace eGonullu.Services
 {
 	public interface IParticipantData
 	{
-		public void Delete(string userId, int activityId);
+		public void Delete(int userId, int activityId);
 		IEnumerable<Participant> GetByActivityId(int activityId);
 		Participant Add(Participant participant);
-		Participant Get(string userId, int activityId);
+		Participant Get(int userId, int activityId);
 	}
 }
