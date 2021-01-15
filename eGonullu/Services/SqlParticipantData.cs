@@ -16,11 +16,6 @@ namespace eGonullu.Services
 		{
 			_context = context;
 		}
-		public IEnumerable<Participant> GetAll()
-		{
-			throw new NotImplementedException();
-		}
-
 		public Participant Add(Participant participant)
 		{
 			_context.Participants.Add(participant);
@@ -48,11 +43,6 @@ namespace eGonullu.Services
 				.Include(p => p.Activity)
 				.Include(p => p.User)
 				.SingleOrDefault(p => p.User.Id == userId && p.Activity.Id == activityId);
-		}
-
-		public Participant Update(Participant user)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

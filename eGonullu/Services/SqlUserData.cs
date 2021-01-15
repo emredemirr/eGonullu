@@ -38,11 +38,6 @@ namespace eGonullu.Services
 			return user;
 		}
 
-		public User Get(string id)
-		{
-			throw new NotImplementedException();
-		}
-
 		public User Update(User user)
 		{
 			_context.Attach(user).State = EntityState.Modified;
