@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using eGonullu.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace eGonullu.Services
@@ -17,11 +19,16 @@ namespace eGonullu.Services
 			User user = null;
 			try
 			{
-				string url = "http://localhost:3003/user?user_id=" + userId;
 				HttpClient client = new HttpClient();
-				var response = await client.GetAsync(url);
+				var values = new Dictionary<string, string>
+				{
+					{ "userId", userId.ToString() },
+				};
+				var content = new FormUrlEncodedContent(values);
+				var response = await client.PostAsync("http://localhost:3003/users", content);
 				var responseString = await response.Content.ReadAsStringAsync();
 				var parsed = JObject.Parse(responseString);
+
 				if ((int)parsed["statusCode"] == 200)
 				{
 					user = new User
@@ -52,20 +59,7 @@ namespace eGonullu.Services
 		{
 
 			HttpClient client = new HttpClient();
-			var values = new Dictionary<string, string>
-			{
-				{ "Tc", user.Tc },
-				{ "Name", user.Name },
-				{ "LastName", user.LastName },
-				{ "Email", user.Email },
-				{ "Phone", user.Phone },
-				{ "PictureUrl", user.PictureUrl },
-				{ "Twitter", user.Twitter },
-				{ "WebSite", user.WebSite },
-				{ "Instagram", user.Instagram },
-				{ "Facebook", user.Facebook },
-			};
-			var content = new FormUrlEncodedContent(values);
+			var content = JObject.FromObject(user).ToObject<FormUrlEncodedContent>();
 			var response = await client.PostAsync("http://localhost:3003/register", content);
 			var responseString = await response.Content.ReadAsStringAsync();
 			var parsed = JObject.Parse(responseString);
@@ -73,13 +67,13 @@ namespace eGonullu.Services
 			return (int)parsed["statusCode"] == 200;
 		}
 
-		public async Task<bool> Login(string userName, string password)
+		public async Task<int> Login(string email, string password)
 		{
 			HttpClient client = new HttpClient();
 			var values = new Dictionary<string, string>
 			{
-				{ "userName", userName },
-				{ "password", password },
+				{ "Email", email },
+				{ "Password", password },
 			};
 			var content = new FormUrlEncodedContent(values);
 			var response = await client.PostAsync("http://localhost:3003/login", content);
@@ -87,11 +81,11 @@ namespace eGonullu.Services
 			var parsed = JObject.Parse(responseString);
 			if ((int)parsed["statusCode"] == 200)
 			{
-				return true;
+				return (int)parsed["Id"];
 			}
 			else
 			{
-				return false;
+				return -1;
 			}
 		}
 		

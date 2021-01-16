@@ -30,11 +30,11 @@ namespace eGonullu
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddSession();
 			services.AddDbContext<EGonulluDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("eGonullu")));
 			services.AddTransient<IUserData, HttpUserData>();
 			services.AddScoped<IParticipantData, SqlParticipantData>();
 			services.AddScoped<IActivityData, SqlActivityData>();
+			services.AddSession();
 			services.AddControllersWithViews();
 		}
 

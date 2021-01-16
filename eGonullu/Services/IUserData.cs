@@ -11,7 +11,7 @@ namespace eGonullu.Services
 	{
 		Task<User> Get(int userId);
 		Task<bool> Add(User user);
-		Task<bool> Login(string userName, string password);
+		Task<int> Login(string userName, string password);
 		Task<bool> Update(User user);
 	}
 }

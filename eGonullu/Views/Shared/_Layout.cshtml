@@ -2,7 +2,13 @@
 @using Microsoft.AspNetCore.Http
 @inject IUserData UserData
 @{
-    User currentUser = UserData.Get(int.Parse(Context.Session.GetString("userId"))).Result;
+    var session = Context.Session.GetInt32("userId");
+    int userId = session ?? -1;
+    User currentUser = null;
+    if (session!=null)
+    {
+        currentUser = UserData.Get(userId).Result;
+    }
 }
 <!DOCTYPE html>
 <html>

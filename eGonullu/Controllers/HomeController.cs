@@ -4,12 +4,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using eGonullu.Services;
 using eGonullu.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -25,22 +27,13 @@ namespace eGonullu.Controllers
 			_activityData = activityData;
 			_userData = userData;
 		}
-		[AllowAnonymous]
 		public IActionResult Index()
 		{
-			
-			if (!User.Identity.IsAuthenticated)
+			var viewModel = new HomeIndexViewModel
 			{
-				return View("Unauthorized");
-			}
-			else
-			{
-				var viewModel = new HomeIndexViewModel
-				{
-					Activities = _activityData.GetAll()
-				};
-				return View(viewModel);
-			}
+				Activities = _activityData.GetAll()
+			};
+			return View(viewModel);
 		}
 		[Route("[controller]/[action]/{city}/{state}")]
 		public IActionResult Index(string city, string state)
