@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using eGonullu.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +27,15 @@ namespace eGonullu.Controllers
 			if (loginCheck != -1)
 			{
 				HttpContext.Session.SetInt32("userId", loginCheck);
-				return Content("Oldu");
+				return RedirectToAction("Index", "Home");
 			}
-			return Content("Olmadı");
+
+			return View();
+		}
+		public IActionResult Logout()
+		{
+			HttpContext.Session.Clear();
+			return RedirectToAction("Index", "Login");
 		}
 	}
 }

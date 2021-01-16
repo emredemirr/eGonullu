@@ -44,6 +44,7 @@ namespace eGonullu.Services
 						Phone = (string)parsed["Phone"],
 						Tc = (string)parsed["Tc"],
 						WebSite = (string)parsed["WebSite"],
+						Password = (string)parsed["Password"],
 					};
 				}
 
@@ -59,7 +60,21 @@ namespace eGonullu.Services
 		{
 
 			HttpClient client = new HttpClient();
-			var content = JObject.FromObject(user).ToObject<FormUrlEncodedContent>();
+			var values = new Dictionary<string, string>
+			{
+				{ "Tc", user.Tc },
+				{ "Name", user.Name },
+				{ "LastName", user.LastName },
+				{ "Email", user.Email },
+				{ "Phone", user.Phone },
+				{ "PictureUrl", user.PictureUrl },
+				{ "Twitter", user.Twitter },
+				{ "WebSite", user.WebSite },
+				{ "Instagram", user.Instagram },
+				{ "Facebook", user.Facebook },
+				{ "Password", user.Password },
+			};
+			var content = new FormUrlEncodedContent(values);
 			var response = await client.PostAsync("http://localhost:3003/register", content);
 			var responseString = await response.Content.ReadAsStringAsync();
 			var parsed = JObject.Parse(responseString);
@@ -106,6 +121,7 @@ namespace eGonullu.Services
 				{ "WebSite", user.WebSite },
 				{ "Instagram", user.Instagram },
 				{ "Facebook", user.Facebook },
+				{ "Password", user.Password },
 			};
 			var content = new FormUrlEncodedContent(values);
 			var response = await client.PostAsync("http://localhost:3003/update_user", content);

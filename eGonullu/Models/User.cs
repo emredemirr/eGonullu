@@ -28,11 +28,11 @@ namespace eGonullu.Models
 
 		[Phone]
 		public string Phone { get; set; }
-		public List<Activity> Activities { get; set; }
 
-		[Url] 
+		[Url]
 		public string PictureUrl { get; set; }
-		
+		public string Password { get; set; }
+
 		public string Twitter { get; set; }
 		public string WebSite { get; set; }
 		public string Instagram { get; set; }

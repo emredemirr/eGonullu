@@ -34,15 +34,13 @@ namespace eGonullu.Services
 		{
 			return _context.Participants
 				.Include(p => p.Activity)
-				.Include(p => p.User)
 				.Where(p => p.Activity.Id == activityId);
 		}
 		public Participant Get(int userId, int activityId)
 		{
 			return _context.Participants
 				.Include(p => p.Activity)
-				.Include(p => p.User)
-				.SingleOrDefault(p => p.User.Id == userId && p.Activity.Id == activityId);
+				.SingleOrDefault(p => p.UserId == userId && p.Activity.Id == activityId);
 		}
 	}
 }

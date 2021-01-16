@@ -21,7 +21,9 @@ namespace eGonullu.Models
 
 		[Required, MaxLength(30)]
 		public string State { get; set; }
-		public User User { get; set; }
+
+		public string AddressDetail { get; set; }
+		public int UserId { get; set; }
 		public List<Participant> Participants { get; set; }
 	}
 }

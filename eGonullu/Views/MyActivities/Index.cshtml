@@ -24,7 +24,7 @@
                         @activity.Definition
                     </p>
                     <p class="card-text"><small class="text-muted">Etkinliğe Kalan Süre: @((activity.ActivityDate-DateTime.Now).Hours) saat</small></p>
-                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
+                    <a asp-action="Details" asp-controller="MyActivities" asp-route-id="@activity.Id"  class="btn btn-outline-success btn-sm btn-block">İncele</a>
                 </div>
             </div>
         }

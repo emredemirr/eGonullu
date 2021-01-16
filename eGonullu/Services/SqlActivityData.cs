@@ -25,13 +25,15 @@ namespace eGonullu.Services
 		{
 			return _context.Activities.Where(a => a.City == city && a.State == state);
 		}
+
 		public IEnumerable<Activity> GetByCity(string city)
 		{
 			return _context.Activities.Where(a => a.City == city);
 		}
+
 		public IEnumerable<Activity> GetUserActivities(int userId)
 		{
-			return _context.Activities.Where(a => a.User.Id == userId);
+			return _context.Activities.Where(a => a.UserId == userId);
 		}
 
 		public Activity Add(Activity activity)
@@ -44,9 +46,7 @@ namespace eGonullu.Services
 		public Activity Get(int id)
 		{
 			return _context.Activities
-				.Include(a => a.User)
 				.Include(a => a.Participants)
-				.ThenInclude(participant => participant.User)
 				.SingleOrDefault(a => a.Id == id);
 		}
 
@@ -60,10 +60,8 @@ namespace eGonullu.Services
 		public IEnumerable<Activity> GetJoinedActivities(int userId)
 		{
 			return _context.Activities
-				.Include(a => a.User)
 				.Include(a => a.Participants)
-				.ThenInclude(participant => participant.User)
-				.Where(a => a.Participants.Any(p => p.User.Id == userId));
+				.Where(a => a.Participants.Any(p => p.UserId == userId));
 		}
 	}
 }

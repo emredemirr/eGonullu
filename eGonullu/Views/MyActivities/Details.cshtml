@@ -1,6 +1,6 @@
 ﻿@model eGonullu.ViewModels.ActivityDetailsViewModel
 
-<h1>Aktivite Sahibi: @Model.Activity.User.Name</h1>
+<h1>Aktivite Sahibi: @Model.ActivityUser.Name</h1>
 <h1>Aktivite Adı: @Model.Activity.Name</h1>
 <h1>Aktivite Yeri: @Model.Activity.City / @Model.Activity.State</h1>
 
@@ -8,8 +8,11 @@
 
 <h1>Katılımcılar</h1>
 <ul>
-    @foreach (var participant in Model.Activity.Participants)
+    @if (Model.Participants.Any())
     {
-        <li>@participant.User.Name</li>
+        foreach (var participant in Model.Participants)
+        {
+            <li>@participant.Name</li>
+        }
     }
 </ul>

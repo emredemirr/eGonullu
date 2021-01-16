@@ -10,7 +10,7 @@ using eGonullu.Data;
 namespace eGonullu.Migrations
 {
     [DbContext(typeof(EGonulluDbContext))]
-    [Migration("20210113185704_InitialCreate")]
+    [Migration("20210116165143_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,9 @@ namespace eGonullu.Migrations
 
                     b.Property<DateTime>("ActivityDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("AddressDetail")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -52,12 +55,10 @@ namespace eGonullu.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Activities");
                 });
@@ -72,71 +73,14 @@ namespace eGonullu.Migrations
                     b.Property<int?>("ActivityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Participants");
-                });
-
-            modelBuilder.Entity("eGonullu.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Facebook")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Instagram")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PictureUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tc")
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<string>("Twitter")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WebSite")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("eGonullu.Models.Activity", b =>
-                {
-                    b.HasOne("eGonullu.Models.User", "User")
-                        .WithMany("Activities")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("eGonullu.Models.Participant", b =>
@@ -145,23 +89,12 @@ namespace eGonullu.Migrations
                         .WithMany("Participants")
                         .HasForeignKey("ActivityId");
 
-                    b.HasOne("eGonullu.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Activity");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("eGonullu.Models.Activity", b =>
                 {
                     b.Navigation("Participants");
-                });
-
-            modelBuilder.Entity("eGonullu.Models.User", b =>
-                {
-                    b.Navigation("Activities");
                 });
 #pragma warning restore 612, 618
         }

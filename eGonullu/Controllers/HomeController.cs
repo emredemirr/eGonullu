@@ -8,6 +8,8 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using eGonullu.Data;
+using eGonullu.Filters;
 using eGonullu.Services;
 using eGonullu.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -17,15 +19,18 @@ using Newtonsoft.Json.Linq;
 
 namespace eGonullu.Controllers
 {
+	[LoginCheck]
 	public class HomeController : Controller
 	{
 		private IActivityData _activityData;
 		private IUserData _userData;
+		private EGonulluDbContext _context;
 
-		public HomeController(IActivityData activityData, IUserData userData)
+		public HomeController(IActivityData activityData, IUserData userData, EGonulluDbContext context)
 		{
 			_activityData = activityData;
 			_userData = userData;
+			_context = context;
 		}
 		public IActionResult Index()
 		{

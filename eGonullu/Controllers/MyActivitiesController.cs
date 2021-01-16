@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using eGonullu.Filters;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
+	[LoginCheck]
 	public class MyActivitiesController : Controller
 	{
 		private IUserData _userData;
@@ -33,9 +35,16 @@ namespace eGonullu.Controllers
 
 		public IActionResult Details(int id)
 		{
+			var participants = new List<User>();
+			foreach (var activityParticipant in _activityData.Get(id).Participants)
+			{
+				participants.Add(_userData.Get(activityParticipant.UserId).Result);
+			}
 			var viewModel = new ActivityDetailsViewModel
 			{
-				Activity = _activityData.Get(id)
+				Activity = _activityData.Get(id),
+				ActivityUser = getUser(),
+				Participants = participants
 			};
 			return View(viewModel);
 		}
@@ -54,7 +63,7 @@ namespace eGonullu.Controllers
 			{
 				var activity = new Activity
 				{
-					User = getUser(),
+					UserId = getUser().Id,
 					ActivityDate = model.ActivityDate,
 					City = model.City,
 					State = model.State,
@@ -91,10 +100,11 @@ namespace eGonullu.Controllers
 				return View();
 			}
 		}
-
+		
 		private User getUser()
 		{
-			return _userData.Get(int.Parse(HttpContext.Session.GetString("userId"))).Result;
+			var userId = HttpContext.Session.GetInt32("userId").GetValueOrDefault();
+			return _userData.Get(userId).Result;
 		}
 	}
 }

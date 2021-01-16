@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using eGonullu.Filters;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
+	[LoginCheck]
     public class ActivitiesController : Controller
     {
 	    private IUserData _userData;
@@ -27,8 +30,9 @@ namespace eGonullu.Controllers
 
         public IActionResult Details(int id)
         {
+	        Activity activity = _activityData.Get(id);
 	        Participant participant;
-	        if (isUserParticipant(id))
+	        if (isUserParticipantToActivity(id))
 	        {
 		        participant = _participantData.Get(getUser().Id, id);
 			}
@@ -36,15 +40,23 @@ namespace eGonullu.Controllers
 	        {
 		        participant = new Participant
 		        {
-			        Activity = _activityData.Get(id),
-			        User = getUser()
+			        Activity = activity,
+			        UserId = getUser().Id
 		        };
+	        }
+
+	        var participants = new List<User>();
+	        foreach (var activityParticipant in activity.Participants)
+	        {
+		        participants.Add(_userData.Get(activityParticipant.UserId).Result);
 	        }
 	        var viewModel = new ActivityDetailsViewModel
 	        {
-		        Activity = _activityData.Get(id),
-				IsUserParticipant = isUserParticipant(id),
-				Participant = participant
+		        Activity = activity,
+				IsUserParticipant = isUserParticipantToActivity(id),
+				Participant = participant,
+				ActivityUser = _userData.Get(activity.UserId).Result,
+				Participants = participants
 	        };
 	        return View(viewModel);
         }
@@ -57,7 +69,7 @@ namespace eGonullu.Controllers
 	        {
 		        var participant = new Participant
 		        {
-					User = getUser(),
+					UserId = getUser().Id,
 					Activity = _activityData.Get(activityId)
 		        };
 		        participant = _participantData.Add(participant);
@@ -80,13 +92,14 @@ namespace eGonullu.Controllers
 			return RedirectToAction("Details", "Activities", new { id = activityId });
 		}
 		private User getUser()
-        {
-	        return _userData.Get(int.Parse(HttpContext.Session.GetString("userId"))).Result;
-        }
+		{
+			var userId = HttpContext.Session.GetInt32("userId").GetValueOrDefault();
+			return _userData.Get(userId).Result;
+		}
 
-        private bool isUserParticipant(int activityId)
+        private bool isUserParticipantToActivity(int activityId)
         {
-	        return _participantData.GetByActivityId(activityId).Any(p => p.User.Id == getUser().Id);
+	        return _participantData.GetByActivityId(activityId).Any(p => p.UserId == getUser().Id);
         }
 
     }

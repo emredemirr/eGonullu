@@ -56,6 +56,7 @@ namespace eGonullu
 			app.UseHttpsRedirection();
 			app.UseRewriter(new RewriteOptions().AddRedirectToHttpsPermanent());
 			app.UseStaticFiles();
+			app.UseAuthentication();
 
 			app.UseRouting();
 

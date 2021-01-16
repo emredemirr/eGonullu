@@ -9,7 +9,7 @@ namespace eGonullu.Models
 	public class Participant
 	{
 		public int Id { get; set; }
-		public User User { get; set; }
+		public int UserId { get; set; }
 		public Activity Activity { get; set; }
 	}
 }

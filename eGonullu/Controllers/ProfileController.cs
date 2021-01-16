@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using eGonullu.Filters;
 using eGonullu.Models;
 using eGonullu.Services;
 using eGonullu.ViewModels;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eGonullu.Controllers
 {
+	[LoginCheck]
     public class ProfileController : Controller
     {
 	    private IUserData _userData;
@@ -49,7 +51,8 @@ namespace eGonullu.Controllers
 		}
 		private User getUser()
 		{
-			return _userData.Get(int.Parse(HttpContext.Session.GetString("userId"))).Result;
+			var userId = HttpContext.Session.GetInt32("userId").GetValueOrDefault();
+			return _userData.Get(userId).Result;
 		}
 
 	}
