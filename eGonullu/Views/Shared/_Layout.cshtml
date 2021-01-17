@@ -19,6 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title | e-Gönüllü</title>
     <link rel="stylesheet" href="~/css/Content/bootstrap.min.css">
+    <link href="~/css/site.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/css/footer.css">
 
 </head>
@@ -44,7 +45,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <a class="btn btn-outline-light my-2 my-sm-0 m-2" href="/MyActivities/Create">Etkinlik Oluştur</a>
-                <a class="btn btn-outline-light my-2 my-sm-0" href="/Profile"><i class="fa fa-user fa-spin"></i> @currentUser?.Name</a>
+                <a class="btn btn-outline-light my-2 my-sm-0" href="/Profile"><i class="fa fa-user"></i> @currentUser?.Name</a>
             </form>
         </div>
     </nav>

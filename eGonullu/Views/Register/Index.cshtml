@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" href="~/css/login.css">
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="~/images/male.png" id="icon" alt="User Icon" class="rounded-circle p-3" />
+        </div>
+        
+        <!-- Login Form -->
+        <form method="post" action="/register">
+            <input type="text" id="name" class="fadeIn first" name="name" placeholder="Ad">
+            <input type="text" id="lastName" class="fadeIn second" name="lastName" placeholder="Soyad">
+            <input type="text" id="email" class="fadeIn third" name="email" placeholder="E-Posta">
+            <input type="text" id="password" class="fadeIn fourth" name="password" placeholder="Şifre">
+            <input type="submit" class="fadeIn fourth" value="Kayıt">
+        </form>
+        
+        <div id="formFooter">
+            <a class="underlineHover" asp-action="Index" asp-controller="Login">Giriş</a>
+        </div>
+    </div>
+</div>

@@ -13,6 +13,7 @@ namespace eGonullu.Models
 		[Required, MaxLength(80)]
 		public string Name { get; set; }
 		public string PictureUrl { get; set; }
+		public string Title { get; set; }
 		public string Definition { get; set; }
 		public DateTime ActivityDate { get; set; }
 

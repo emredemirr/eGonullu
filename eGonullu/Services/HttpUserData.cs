@@ -56,7 +56,7 @@ namespace eGonullu.Services
 			return user;
 		}
 
-		public async Task<bool> Add(User user)
+		public async Task<int> Add(User user)
 		{
 
 			HttpClient client = new HttpClient();
@@ -79,7 +79,7 @@ namespace eGonullu.Services
 			var responseString = await response.Content.ReadAsStringAsync();
 			var parsed = JObject.Parse(responseString);
 
-			return (int)parsed["statusCode"] == 200;
+			return (int)parsed["userId"];
 		}
 
 		public async Task<int> Login(string email, string password)

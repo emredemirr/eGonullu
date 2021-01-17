@@ -10,8 +10,7 @@ namespace eGonullu.Models
 	public class User
 	{
 		public int Id { get; set; }
-
-		[StringLength(11)]
+		
 		public string Tc { get; set; }
 
 		[Required]
@@ -31,6 +30,8 @@ namespace eGonullu.Models
 
 		[Url]
 		public string PictureUrl { get; set; }
+
+		[Required]
 		public string Password { get; set; }
 
 		public string Twitter { get; set; }

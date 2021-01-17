@@ -65,6 +65,8 @@ namespace eGonullu.Controllers
 				{
 					UserId = getUser().Id,
 					ActivityDate = model.ActivityDate,
+					AddressDetail = model.AddressDetail,
+					Title = model.Title,
 					City = model.City,
 					State = model.State,
 					Name = model.Name,
@@ -80,7 +82,7 @@ namespace eGonullu.Controllers
 			}
 		}
 
-		[HttpGet]
+		[HttpGet("[controller]/[action]/{id}")]
 		public IActionResult Edit(int id)
 		{
 			return View(_activityData.Get(id));
@@ -90,6 +92,10 @@ namespace eGonullu.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(Activity activity)
 		{
+			if (getUser().Id != activity.UserId)
+			{
+				return RedirectToAction("Index", "Home");
+			}
 			if (ModelState.IsValid)
 			{
 				_activityData.Update(activity);

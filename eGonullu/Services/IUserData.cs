@@ -10,7 +10,7 @@ namespace eGonullu.Services
 	public interface IUserData
 	{
 		Task<User> Get(int userId);
-		Task<bool> Add(User user);
+		Task<int> Add(User user);
 		Task<int> Login(string userName, string password);
 		Task<bool> Update(User user);
 	}

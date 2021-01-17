@@ -1,36 +1,123 @@
-﻿@model Activity
-<form method="post">
-    @*<input type="text" name="Name" value=""/>*@
-    <input type="hidden" asp-for="@Model.Id"/>
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name"/>
-        <span asp-validation-for="Name"></span>
+﻿@using eGonullu.Data
+@model Activity
+@{
+    var cities = new List<SelectListItem>();
+    CityStateData.GetCities().ForEach(c =>
+    {
+        cities.Add(new SelectListItem(c, c));
+    });
+}
+<div class="container">
+    <div class="m-3"></div>
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="row m-3"><h4 style="color:white">.</h4></div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="@Model.PictureUrl" alt="Admin" class="rounded-top" width="330" height="425">
+                            <div class="mt-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <form method="post">
+                    <input type="hidden" asp-for="UserId" />
+                    <div class="row m-3"><h4>Etkinlik Oluştur</h4></div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Etkinlik Adı</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="Name" class="form-control form-control-sm" />
+                                    <span asp-validation-for="Name"></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Başlık</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="Title" class="form-control form-control-sm" />
+                                    <span asp-validation-for="Title"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">İl</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select asp-for="City" class="form-control form-control-sm" asp-items="cities">
+                                    </select>
+                                    <span asp-validation-for="City"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">İlçe</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="State" class="form-control form-control-sm" />
+                                    <span asp-validation-for="State"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Adres</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="AddressDetail" class="form-control form-control-sm" />
+                                    <span asp-validation-for="AddressDetail"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Etkinlik Tarihi</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="ActivityDate" class="form-control form-control-sm" />
+                                    <span asp-validation-for="ActivityDate"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fotoğraf</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="PictureUrl" class="form-control form-control-sm" />
+                                    <span asp-validation-for="PictureUrl"></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Açıklama</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input asp-for="Definition" class="form-control" />
+                                    <span asp-validation-for="Definition"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <input class="btn btn-outline-success" type="submit" name="save" value="Kaydet" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="City"></label>
-        <input asp-for="City"/>
-        <span asp-validation-for="City"></span>
-    </div>
-    <div>
-        <label asp-for="State"></label>
-        <input asp-for="State"/>
-        <span asp-validation-for="State"></span>
-    </div>
-    <div>
-        <label asp-for="PictureUrl"></label>
-        <input asp-for="PictureUrl"/>
-        <span asp-validation-for="PictureUrl"></span>
-    </div>
-    <div>
-        <label asp-for="Definition"></label>
-        <input asp-for="Definition"/>
-        <span asp-validation-for="Definition"></span>
-    </div>
-    <div>
-        <label asp-for="ActivityDate"></label>
-        <input asp-for="ActivityDate"/>
-        <span asp-validation-for="ActivityDate"></span>
-    </div>
-    <input type="submit" name="save" value="Save" />
-</form>
+</div>

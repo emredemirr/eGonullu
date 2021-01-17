@@ -12,6 +12,8 @@ namespace eGonullu.ViewModels
 		public string Name { get; set; }
 		public string PictureUrl { get; set; }
 		public string Definition { get; set; }
+		public string AddressDetail { get; set; }
+		public string Title { get; set; }
 		public DateTime ActivityDate { get; set; }
 
 		[Required, MaxLength(30)]
