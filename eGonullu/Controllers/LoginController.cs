@@ -23,7 +23,7 @@ namespace eGonullu.Controllers
 		public IActionResult Index(string email, string password)
 		{
 			Console.WriteLine("Ok");
-			var loginCheck = _userData.Login(email, password).Result;
+			var loginCheck = _userData.Login(email, password);
 			if (loginCheck != -1)
 			{
 				HttpContext.Session.SetInt32("userId", loginCheck);
